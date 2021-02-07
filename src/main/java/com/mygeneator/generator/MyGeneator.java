@@ -3,17 +3,17 @@ package com.mygeneator.generator;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
-import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
-import com.baomidou.mybatisplus.generator.config.GlobalConfig;
-import com.baomidou.mybatisplus.generator.config.PackageConfig;
-import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.po.TableFill;
+import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Title: MyGeneator
@@ -29,12 +29,12 @@ public class MyGeneator {
 
         // 1. 全局配置
         GlobalConfig gc = new GlobalConfig();
-        //D:\dongbao\上课\msb-dongbao-mall\msb-dongbao-mall-parent-v1\msb-dongbao-service\msb-dongbao-ums\src\main\java
-        String path = "D:\\workspace\\rxdrepairsaas-labcenter\\src\\main\\java";
-        String cloumnName = "inspection_";
+
+        String projectPath = "E:/generatorCode";
+        String cloumnName = "dtc_info";
 
         String separator = File.separator;
-        gc.setOutputDir(path);
+        gc.setOutputDir(projectPath + "/src/main/java");
         gc.setAuthor("gjh");
         gc.setOpen(false);//打开目录
         gc.setFileOverride(true);//是否覆盖
@@ -61,8 +61,24 @@ public class MyGeneator {
         pc.setEntity("entity");
         pc.setMapper("mapper");
         pc.setController("controller");
+        pc.setXml("");
 
         mpg.setPackageInfo(pc);
+
+        //// 如果模板引擎是 velocity
+        // String templatePath = "/templates/mapper.xml.vm";
+        //
+        //// 自定义输出配置
+        //List<FileOutConfig> focList = new ArrayList<>();
+        //// 自定义配置会被优先输出
+        //focList.add(new FileOutConfig(templatePath) {
+        //    @Override
+        //    public String outputFile(TableInfo tableInfo) {
+        //        // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
+        //        return projectPath + "/src/main/resources/mapper/" + pc.getModuleName()
+        //                + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
+        //    }
+        //});
 
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
@@ -74,7 +90,7 @@ public class MyGeneator {
 
         // 自动填充
         TableFill gmtCreate = new TableFill("create_time", FieldFill.INSERT);
-        TableFill gmtModify = new TableFill("update_time",FieldFill.INSERT_UPDATE);
+        TableFill gmtModify = new TableFill("update_time", FieldFill.INSERT_UPDATE);
         ArrayList<TableFill> tableFills = new ArrayList<>();
         tableFills.add(gmtCreate);
         tableFills.add(gmtModify);
